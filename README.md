@@ -1,2 +1,2 @@
-# validator
-Document Validator Project
+# IHE Profile Validator
+Developing Phase.
