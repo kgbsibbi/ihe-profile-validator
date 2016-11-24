@@ -1,0 +1,18 @@
+.layout-transparent {
+  background: url('../resources/technology.jpg') center / cover;
+}
+.layout-transparent .mdl-layout__header,
+.layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.layout-footer {
+	background: #000000;
+}
+
+.page-content {
+	background: rgba(255, 255, 255, 0.8);
+	padding: 10px 30px 10px 30px;
+}
