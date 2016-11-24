@@ -9,7 +9,7 @@
 			<input type="text" id="filename" class="form-control" readonly required aria-label="Selected file name">
 			<span class="input-group-btn">
 				<button class="btn btn-secondary" type="button" id="browsebutton">Browse</button>
-				<input class="btn btn-secondary" type="submit" id="validatebutton" value="VALIDATE">
+				<input class="btn btn-primary" type="submit" id="validatebutton" value="VALIDATE">
 			</span>
 		</div>
 		<input class="form-control file" type="file" id="fileinput" name="fileinput" required aria-label="Hidden input for file selection">

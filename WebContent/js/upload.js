@@ -12,6 +12,8 @@ $(document).ready(function(){
 		  $("#filename").val($("#fileinput").val().replace(/C:\\fakepath\\/i, ''));
 		  if($("#filename").val().length > 0){
 			  $("#validatebutton").attr('disabled', false);
+		  }else {
+			  $("#validatebutton").attr('disabled', true);
 		  }
 	});
 });

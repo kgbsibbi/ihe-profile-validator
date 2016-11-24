@@ -9,7 +9,6 @@ public class ValidateAction implements Action{
 	public String processRequest(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		String type = request.getParameter("type");
 		String result = "Valid document";
-		
 		if(type == null) type="phmrcda";
 		
 		request.setAttribute("result", result);
