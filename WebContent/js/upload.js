@@ -1,8 +1,17 @@
 $(document).ready(function(){
-	//Ajax방식으로 요청페이지를 호출해 파일을 업로드한다. 
-	$("#upload").ajaxForm({
-		success: function(data, status){//업로드에 성공하면 수행
-   			$("#result").html(data);//응답받은 결과를 표시
-   		}
-    });
+	$("#validatebutton").attr('disabled', true);
+	
+	$("#browsebutton").on('click', function(){
+		$("#fileinput").trigger('click');
+	});
+	$("#filename").on('click', function(){
+		
+		$("#fileinput").trigger('click');
+	});
+	$("#fileinput").on('change',function(){
+		  $("#filename").val($("#fileinput").val().replace(/C:\\fakepath\\/i, ''));
+		  if($("#filename").val().length > 0){
+			  $("#validatebutton").attr('disabled', false);
+		  }
+	});
 });
