@@ -2,12 +2,27 @@
   visibility: hidden;
 }
 
+html {
+	height:100%;
+}
 body {
+  display: flex;
+  flex-direction: column;
+  background-image:url('../resources/technology.jpg');
   padding-top: 10px;
   padding-bottom: 10px;
+  height:100%;
 }
 
 .main-contents {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-top:10px;
+  padding: 20px 0px 20px 0px;
+  background: rgba(255,255,255,0.7);
+  flex-grow: 1;
+}
+
+.navbar {
+  background: transparent;
+  border: 0;
+  margin-bottom: 0;
 }

@@ -17,7 +17,7 @@
 <!-- contents container-->
 <div class="container">
 	<!-- header -->
-	<nav class="navbar navbar-dark bg-inverse">
+	<nav class="navbar navbar-dark">
 		<a class="navbar-brand" href="index.do">IHE Profile Validator</a>
 		<ul class="nav navbar-nav float-xs-right">
 			<li class="nav-item active">
@@ -27,8 +27,10 @@
 	    	</li>
 	    </ul>
 	</nav>
-	<!-- main contents -->
-	<div class="main-contents">
+</div>
+<!-- main contents -->
+<div class="main-contents">
+	<div class="container">
 		<c:choose>
 			<c:when test="${content != null }">
 				<jsp:include page="${content }"/>
@@ -39,5 +41,6 @@
 		</c:choose>
 	</div>
 </div>
+
 </body>
 </html>
