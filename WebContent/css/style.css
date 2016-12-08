@@ -5,10 +5,12 @@
 html {
 	height:100%;
 }
+
 body {
   display: flex;
   flex-direction: column;
-  background-image:url('../resources/technology.jpg');
+  background-image: url('../resources/technology.jpg');
+  background-color: rgba(0,0,0,0);
   padding-top: 10px;
   padding-bottom: 10px;
   height:100%;
@@ -25,4 +27,16 @@ body {
   background: transparent;
   border: 0;
   margin-bottom: 0;
+}
+
+.valid {
+	color: #338AFF;
+}
+
+.invalid {
+	color: #900C3F
+}
+
+.upload-error{
+	color: #9333FF;
 }
