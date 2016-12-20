@@ -6,11 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>IHE Profile Validator</title>
+<link rel="stylesheet" href="./css/tether.min.css">
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/style.css">
-<script src="./js/bootstrap.min.js"></script>
 <script src="./js/jquery-3.1.1.min.js"></script>
 <script src="./js/jquery.form.min.js"></script>
+<script src="./js/tether.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
 <script src="./js/upload.js"></script>
 </head>
 <body>

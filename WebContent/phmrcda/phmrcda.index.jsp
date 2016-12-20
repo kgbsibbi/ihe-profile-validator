@@ -12,7 +12,7 @@
 				<input class="btn btn-primary" type="submit" id="validatebutton" value="VALIDATE">
 			</span>
 		</div>
-		<input class="form-control file" type="file" id="fileinput" name="fileinput" required aria-label="Hidden input for file selection">
+		<input class="form-control file" type="file" id="fileinput" accept=".xml" name="fileinput" required aria-label="Hidden input for file selection">
 	</div>
 </form>
 <c:if test="${not empty result }">

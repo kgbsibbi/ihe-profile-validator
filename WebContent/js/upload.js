@@ -10,8 +10,13 @@ $(document).ready(function(){
 	});
 	$("#fileinput").on('change',function(){
 		  $("#filename").val($("#fileinput").val().replace(/C:\\fakepath\\/i, ''));
-		  if($("#filename").val().length > 0){
-			  $("#validatebutton").attr('disabled', false);
+		  var filenameFilter = /\.(xml)$/i;
+		  if($("#filename").val.length > 0 ){
+			  alert("File Selected");
+			  if($("#filename").val.match(filenameFilter))
+				  $("#validatebutton").attr('disabled', false);
+			  else
+				  alert("Select xml file");
 		  }else {
 			  $("#validatebutton").attr('disabled', true);
 		  }

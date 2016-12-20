@@ -66,11 +66,12 @@ public class ValidateAction implements Action{
 		     result="upload-error";
 		     resultMessage = "Too big file.";
 		  } finally {
-			 request.setAttribute("result", uploadedFiles);
 			 SchematronValidator validator = SchematronValidator.getInstance();
 			 String schema = "schema.sch";
 			 String xml = "input.xml";
-			 validator.validate(realFolder,schema, xml, realFolder);
+			 result = validator.validate(realFolder,schema, xml, realFolder);
+			 
+			 request.setAttribute("result", uploadedFiles);
 		  }
 	}
 
