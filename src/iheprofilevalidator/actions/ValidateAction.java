@@ -11,6 +11,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import iheprofilevalidator.bean.ResultBean;
+import iheprofilevalidator.tools.SchematronValidator;
 
 public class ValidateAction implements Action{
 
@@ -66,6 +67,10 @@ public class ValidateAction implements Action{
 		     resultMessage = "Too big file.";
 		  } finally {
 			 request.setAttribute("result", uploadedFiles);
+			 SchematronValidator validator = SchematronValidator.getInstance();
+			 String schema = "schema.sch";
+			 String xml = "input.xml";
+			 validator.validate(realFolder,schema, xml, realFolder);
 		  }
 	}
 
