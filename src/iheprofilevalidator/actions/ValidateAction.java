@@ -29,34 +29,49 @@ public class ValidateAction implements Action{
 		String result="valid";
 		request.setCharacterEncoding("utf-8");
 		String filename ="";
-		String realFolder = ""; // absolute path of web application
-		String saveFolder = "/uploads/phmr_cda"; // file folder
+		String fileFolder = "/uploads/phmr_cda"; // file folder
+		String schematronFolder="/schematrons";
+		String realFileFolder = ""; // absolute path of web application
+		String realSchemaFolder="";
 		String encType = "utf-8";
 		int maxSize = 5*1024*1024;  //Max file size 5Mb
 		ArrayList<ResultBean> uploadedFiles = null;
 		
 		MultipartRequest fileRequest = null;
 		
+		SchematronValidator validator = SchematronValidator.getInstance();
+		String schema = "schema.sch";
+		
 		ServletContext context = request.getSession().getServletContext();
-		realFolder = context.getRealPath(saveFolder);  
+		realFileFolder = context.getRealPath(fileFolder);  
+		realSchemaFolder = context.getRealPath(schematronFolder);
 		
 		try{
-			fileRequest = new MultipartRequest(request,realFolder,maxSize,
+			fileRequest = new MultipartRequest(request,realFileFolder,maxSize,
 					            encType,new DefaultFileRenamePolicy());
 			   
 			// every parameter includes <input type="file">
 			Enumeration<?> files = fileRequest.getFileNames();
 			//파일 정보가 있다면
-			if(files.hasMoreElements())
+			if(files.hasMoreElements()){
 				uploadedFiles = new ArrayList<>();
+			}
 		     while(files.hasMoreElements()){
 		       String name = (String)files.nextElement();
 		       filename = fileRequest.getFilesystemName(name);
+		       result = validator.validate(realSchemaFolder, schema, realFileFolder, filename, realFileFolder);
 		       
 		       ResultBean bean = new ResultBean();
 		       bean.setFileName(fileRequest.getOriginalFileName(name));
-		       bean.setResult("valid");
-		       bean.setResultMessage("Valid Document.");
+		       if(result.equals("500")){
+		    	   bean.setResult("invalid");
+		    	   bean.setResultMessage("INVALID Document");
+		       }
+		       else{
+		    	   bean.setResult("valid");
+		    	   bean.setResultMessage(result);
+		       }
+		       bean.setResultMessage(result);
 		       uploadedFiles.add(bean);
 		     }
 		     request.setAttribute("uploaded", uploadedFiles);
@@ -66,11 +81,6 @@ public class ValidateAction implements Action{
 		     result="upload-error";
 		     resultMessage = "Too big file.";
 		  } finally {
-			 SchematronValidator validator = SchematronValidator.getInstance();
-			 String schema = "schema.sch";
-			 String xml = "input.xml";
-			 result = validator.validate(realFolder,schema, xml, realFolder);
-			 
 			 request.setAttribute("result", uploadedFiles);
 		  }
 	}

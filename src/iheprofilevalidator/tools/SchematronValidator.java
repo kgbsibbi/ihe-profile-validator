@@ -18,11 +18,11 @@ public class SchematronValidator {
 	private SchematronValidator() {}
 	
 	
-	public String validate(String inputFolder, String schemaName, String xmlName, String outFolder){
+	public String validate(String schemaFolder, String schemaName, String fileFolder, String xmlName, String outFolder){
 		String resultFile="";
 	    try{
-	    	Source source = new StreamSource(inputFolder+"/" + schemaName);
-	    	StreamSource xml = new StreamSource(inputFolder+"/"+xmlName);
+	    	Source source = new StreamSource(schemaFolder+"/" + schemaName);
+	    	StreamSource xml = new StreamSource(fileFolder+"/"+xmlName);
 			
 			System.setProperty("javax.xml.transform.TransformerFactory",
 			          "net.sf.saxon.TransformerFactoryImpl");
@@ -35,8 +35,9 @@ public class SchematronValidator {
 	    	SchematronResult result = validator.validate(xml, "", "", "", "", "utf-8");
 	    	SchematronReport report = new SchematronReport();
 	    	report.add(result);
+	    	resultFile=xmlName+"_result.xml";
 	    	report.saveAs(new File(outFolder, resultFile));
-	    	resultFile = outFolder+"/"+ xmlName+"_result.xml";
+	    	resultFile = report.toString();
 	    	
 	    }catch(TransformerException | IOException | IllegalAccessException | ClassNotFoundException | InstantiationException e){
 	    	e.printStackTrace();
