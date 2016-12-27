@@ -25,7 +25,7 @@
 			<li class="nav-item active">
 	      		<a class="nav-link" href="index.do">Guide</a>
 	    	<li class="nav-item active">
-	      		<a class="nav-link" href="phmrcda.do">PHMR CDA</a>
+	      		<a class="nav-link" href="validateMain.do">Validate</a>
 	    	</li>
 	    </ul>
 	</nav>
