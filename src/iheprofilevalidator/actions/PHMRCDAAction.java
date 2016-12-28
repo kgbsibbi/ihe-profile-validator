@@ -84,19 +84,16 @@ public class PHMRCDAAction implements Action{
 		       // Validation
 		       StreamSource xml =new StreamSource(realFileFolder + "/" + filename);
 		       SchematronResult schematronResult = validator.validate(xml, "", "", "", "", "utf-8");
-		       result = schematronResult.getFailedMessage();
 		       SchematronReport report = new SchematronReport();
 		       report.add(schematronResult);
 		       File resultFile = new File(realFileFolder, filename+"_result.xml");
 		       report.saveAs(resultFile );
 		       
-		       BufferedReader in = new BufferedReader(new FileReader(resultFile));
-		       
-		       
 		       ResultBean bean = new ResultBean();
 		       bean.setFileName(fileRequest.getOriginalFileName(name));
-	    	   bean.setResult("valid");
-	    	   bean.setResultMessage("uploads/phmr_cda/"+ resultFile.getName());
+	    	   bean.setResultFile("uploads/phmr_cda/"+ resultFile.getName());
+	    	   // Find Error Messages from result. and add to bean
+	    	   bean.addErrorMessage(schematronResult.getFailedMessage());
 		       uploadedFiles.add(bean);
 		     }
 		     request.setAttribute("uploaded", uploadedFiles);

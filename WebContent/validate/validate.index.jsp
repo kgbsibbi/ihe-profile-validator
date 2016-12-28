@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <p>Select File type and file to validate</p>
 <form action="validate.do" method="post" enctype="multipart/form-data">
 	<div class="form-group col-xs-3">
 	  <label for="sel1">Document Type:</label>
 	  <select name="type" class="form-control" id="sel1">
 	    <option value="phmrcda">PHMR CDA</option>
-	    <option>2</option>
-	    <option>3</option>
-	    <option>4</option>
 	  </select>
 	</div>
 	<div class="input-group">
@@ -38,7 +36,19 @@
 		<c:forEach var="item" items="${result }">
 		<th></th>
 		<td>${item.fileName }</td>
-		<td class="${item.result }"><a href="${item.resultMessage }">${item.resultMessage }</a></td>
+		<td>
+			<c:choose>
+			<c:when test="${fn:length(item.errorMessages) >0 }">
+				<a class="valid" href="${item.resultFile }" target="_blank">Full result report</a>
+				<c:forEach var="message" items="${item.errorMessages }">
+					<p>${message}</p>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<p>Valid document</p>
+			</c:otherwise>
+			</c:choose>
+		</td>
 		</c:forEach>
 		</tbody>
 	</table>
