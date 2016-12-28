@@ -111,6 +111,8 @@ public class Controller extends HttpServlet {
 	        if(command.indexOf(request.getContextPath()) == 0) 
 	           command = command.substring(request.getContextPath().length());
 	        action = (Action)commandMap.get(command);  
+	        if(action == null)
+	        	action = (Action)commandMap.get("/index.do");
 	        view = action.processRequest(request, response);
 		}catch(Throwable e) {
 			e.printStackTrace();

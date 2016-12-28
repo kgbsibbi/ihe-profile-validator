@@ -38,7 +38,7 @@
 		<c:forEach var="item" items="${result }">
 		<th></th>
 		<td>${item.fileName }</td>
-		<td class="${item.result }">${item.resultMessage }</td>
+		<td class="${item.result }"><a href="${item.resultMessage }">${item.resultMessage }</a></td>
 		</c:forEach>
 		</tbody>
 	</table>
