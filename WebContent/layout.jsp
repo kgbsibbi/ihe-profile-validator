@@ -43,6 +43,8 @@
 		</c:choose>
 	</div>
 </div>
-
+<div class="container">
+	<p class="text-white">Copyrights..</p>
+</div>
 </body>
 </html>
