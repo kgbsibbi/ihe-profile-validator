@@ -27,14 +27,18 @@ import iheprofilevalidator.tools.SchematronErrorListener;
 
 public class PHMRCDAAction implements Action{
 	private ValidatorFactory factory;
+	private MultipartRequest multipartRequest;
+	private Enumeration<?> files;
 	//private Validator validator;
 	
-	public PHMRCDAAction(){
+	public PHMRCDAAction(MultipartRequest mreq, Enumeration<?> files){
 		System.setProperty("javax.xml.transform.TransformerFactory",
 		          "net.sf.saxon.TransformerFactoryImpl");
 		factory = new ValidatorFactory("xslt2", "svrl" );
 	    factory.setDebugMode(true);
 	    factory.setErrorListener(new SchematronErrorListener());
+	    this.multipartRequest = mreq;
+	    this.files = files;
 	}
 
 	@Override
@@ -45,19 +49,17 @@ public class PHMRCDAAction implements Action{
 	
 	private void saveFile(HttpServletRequest request, HttpServletResponse response) throws Throwable{
 		String result="valid";
+		// uploaded file
 		String filename ="";
-		String fileFolder = "/uploads/phmr_cda"; // file folder
-		String schematronFolder="/schematrons";
+		String fileFolder = "/uploads"; // file folder
 		String realFileFolder = ""; // absolute path of web application
-		String realSchemaFolder="";
+		// schematron file
+		String schematronFolder="/schematrons/phmr";
 		String schemaFile = "PHMR.sch";
-		String encType = "utf-8";
-		int maxSize = 5*1024*1024;  //Max file size 5Mb
+		String realSchemaFolder="";
 		ArrayList<ResultBean> uploadedFiles = null;
-		MultipartRequest fileRequest = null;
 		
 		request.setCharacterEncoding("utf-8");
-		
 		
 		ServletContext context = request.getSession().getServletContext();
 		realFileFolder = context.getRealPath(fileFolder);  
@@ -68,18 +70,16 @@ public class PHMRCDAAction implements Action{
 		Validator validator = factory.newValidator(source);
 		
 		try{
-			fileRequest = new MultipartRequest(request,realFileFolder,maxSize,
-					            encType,new DefaultFileRenamePolicy());
-			   
-			// every parameter includes <input type="file">
-			Enumeration<?> files = fileRequest.getFileNames();
+			if(files == null){
+				return;
+			}
 			//파일 정보가 있다면
 			if(files.hasMoreElements()){
 				uploadedFiles = new ArrayList<>();
 			}
 			while(files.hasMoreElements()){
 		       String name = (String)files.nextElement();
-		       filename = fileRequest.getFilesystemName(name);
+		       filename = multipartRequest.getFilesystemName(name);
 
 		       // Validation
 		       StreamSource xml =new StreamSource(realFileFolder + "/" + filename);
@@ -90,10 +90,10 @@ public class PHMRCDAAction implements Action{
 		       report.saveAs(resultFile );
 		       
 		       ResultBean bean = new ResultBean();
-		       bean.setFileName(fileRequest.getOriginalFileName(name));
-	    	   bean.setResultFile("uploads/phmr_cda/"+ resultFile.getName());
+		       bean.setFileName(multipartRequest.getOriginalFileName(name));
+	    	   bean.setResultFile("uploads/"+ resultFile.getName());
 	    	   // Find Error Messages from result. and add to bean
-	    	   bean.addErrorMessage(schematronResult.getFailedMessage());
+	    	   bean.addErrorMessage(schematronResult.getSVRLAsString());
 		       uploadedFiles.add(bean);
 		     }
 		     request.setAttribute("uploaded", uploadedFiles);
