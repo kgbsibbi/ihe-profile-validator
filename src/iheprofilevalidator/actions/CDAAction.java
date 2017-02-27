@@ -14,10 +14,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import org.xml.sax.SAXException;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.schematron.ant.SchematronReport;
 import com.schematron.ant.SchematronResult;
 import com.schematron.ant.ValidatorFactory;
